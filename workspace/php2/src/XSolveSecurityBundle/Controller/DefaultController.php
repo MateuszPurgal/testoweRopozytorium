@@ -65,7 +65,7 @@ class DefaultController extends Controller {
         $task = new User();
         $task->setUsername('user');
         $task->setPassword('user');
-        $task->setDescription('brak opisu');
+        
         $form = $this->createFormBuilder($task)
             ->add('username', 'text')
             ->add('password', 'text')

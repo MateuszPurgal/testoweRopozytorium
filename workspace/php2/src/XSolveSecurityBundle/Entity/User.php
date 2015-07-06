@@ -36,12 +36,7 @@ class User implements UserInterface {
      */
     private $password;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text")
-     */
-    private $description;
+
 
     /**
      * Get id
@@ -94,26 +89,7 @@ class User implements UserInterface {
         return $this->password;
     }
 
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return User
-     */
-    public function setDescription($description) {
-        $this->description = $description;
 
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription() {
-        return $this->description;
-    }
 
     public function getSalt() {
         // you *may* need a real salt depending on your encoder
