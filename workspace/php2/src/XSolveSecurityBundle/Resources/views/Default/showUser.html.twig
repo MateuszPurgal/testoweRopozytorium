@@ -1,0 +1,10 @@
+ {% extends "XSolveSecurityBundle::navigate.html.twig" %}
+
+
+
+ {% block content %}
+
+     <h1>{{ user.getUsername() }}</h1>{{ user.getDescription() }}
+                
+
+ {% endblock %}

@@ -1,0 +1,27 @@
+ {% extends "XSolveSecurityBundle::navigate.html.twig" %}
+
+
+
+ {% block content %}
+     
+     
+     
+     <table class="table">
+         <thead>
+             <tr>
+                 <th>Username</th>
+                 <th>Psasword</th>
+             </tr>
+         </thead>
+         <tbody>
+             {% for item in table %}
+                <tr> <td>{{ item.getUsername() }}</td> <td>{{ item.getPassword() }}</td>
+                    <td><a href=" /showUser/{{ item.getId() }}"><button  class="btn btn-primary">Edytuj</button></a></td></tr>
+             {% endfor %}
+
+         </tbody>
+     </table>
+     
+
+
+ {% endblock %}

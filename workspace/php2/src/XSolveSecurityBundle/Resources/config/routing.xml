@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    
+    
+    <route id="x_solve_security_homepage" path="/index">
+        <default key="_controller">XSolveSecurityBundle:Default:index</default>
+    </route>
+    
+    <route id="x_solve_index" path="/">
+        <default key="_controller">XSolveSecurityBundle:Default:index</default>
+    </route>
+    
+    <route id="x_solve_admin_panel" path="/admin">
+        <default key="_controller">XSolveSecurityBundle:Default:PanelAdmin</default>
+    </route>
+    
+    <route id="login_check" path="/login_check">
+    </route>
+    
+    <route id="logout" path="/logout">
+    </route>
+    
+    <route id="adminUsers" path="/admin/users">
+        <default key="_controller">XSolveSecurityBundle:Default:adminUsers</default>
+    </route>
+    
+    <route id="login" path="/login">
+        <default key="_controller">XSolveSecurityBundle:Default:login</default>
+    </route>
+    
+    <route id="register" path="/register">
+        <default key="_controller">XSolveSecurityBundle:Default:register</default>
+    </route>
+    
+    
+    <route id="showUser" path="/showUser/{id}">
+        <default key="_controller">XSolveSecurityBundle:User:ShowUser</default>
+    </route>
+    
+    
+    <route id="page1" path="/page1">
+        <default key="_controller">XSolveSecurityBundle:Default:page1</default>
+    </route>
+    
+    <route id="page2" path="/page2">
+        <default key="_controller">XSolveSecurityBundle:Default:page2</default>
+    </route>
+    
+    <route id="page3" path="/page3">
+        <default key="_controller">XSolveSecurityBundle:Default:page3</default>
+    </route>
+</routes>

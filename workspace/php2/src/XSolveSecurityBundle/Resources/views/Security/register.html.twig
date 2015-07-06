@@ -1,0 +1,16 @@
+  {% extends "XSolveSecurityBundle::navigate.html.twig" %}
+
+
+
+ {% block content %}
+     
+  {{ form_start(form) }}
+     {{ form_errors(form) }}
+
+     {{ form_row(form.username) }}
+     {{ form_row(form.password) }}
+
+     <input type="submit" />
+ 
+     
+{% endblock %}

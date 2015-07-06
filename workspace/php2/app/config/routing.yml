@@ -1,0 +1,7 @@
+x_solve_security:
+    resource: "@XSolveSecurityBundle/Resources/config/routing.xml"
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
