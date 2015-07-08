@@ -8,13 +8,15 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller {
 
     public function indexAction() {
+
         return $this->render('XSolveSecurityBundle:Default:index.html.twig');
     }
-
     public function loginAction() {
         $request = $this->getRequest();
         $session = $request->getSession();
+        
 
+           
         // get the login error if there is one
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
             $error = $request->attributes->get(
@@ -33,7 +35,6 @@ class DefaultController extends Controller {
                         )
         );
     }
-
     public function adminUsersAction() {
         
     $product = $this->getDoctrine()
@@ -44,23 +45,22 @@ class DefaultController extends Controller {
                     'table' => $product
                         ));
     }
-
     public function page1Action() {
         return $this->render('XSolveSecurityBundle:Default:page1.html.twig');
     }
-        public function page2Action() {
+    public function page2Action() {
         return $this->render('XSolveSecurityBundle:Default:page2.html.twig');
     }
-        public function page3Action() {
+    public function page3Action() {
         return $this->render('XSolveSecurityBundle:Default:page3.html.twig');
     }
     public function PanelAdminAction() {
         return $this->render('XSolveSecurityBundle:Default:admin.html.twig');
     }
+    public function registerAction(Request $request){
+        $username = $form["username"]->getData();
+        $password = $form["password"]->getData();
 
-    
-    public function registerAction(Request $request)
-    {
         // create a task and give it some dummy data for this example
         $task = new User();
         $task->setUsername('user');
@@ -86,6 +86,22 @@ class DefaultController extends Controller {
             'form' => $form->createView(),
         ));
     }
+    public function ShowUserAction($id) {
+
+      $user = $this->getDoctrine()
+	      ->getRepository('XSolveSecurityBundle:User')
+	      ->find($id);
+
+      if (!$user) {
+	 throw $this->createNotFoundException(
+		 'No product user for id ' . $id
+	 );
+      }
+      return $this->render('XSolveSecurityBundle:Default:showUser.html.twig', array(
+		  'user' => $user
+      ));
+   }
+
 }
 
 

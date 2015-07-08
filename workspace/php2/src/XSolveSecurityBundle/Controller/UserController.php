@@ -1,34 +1,35 @@
 <?php
 
 namespace XSolveSecurityBundle\Controller;
-use XSolveSecurityBundle\Entity\User;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UserController extends Controller {
 
-public function ShowUserAction($id)
-{
-    $user = $this->getDoctrine()
-        ->getRepository('XSolveSecurityBundle:User')
-        ->find($id);
+   public function RestLoginAction(Request $request) {
+      //get login and password from POST
+      $username = $request->request->get('login');
+      $password = $request->request->get('haslo');
 
-    if (!$user) {
-        throw $this->createNotFoundException(
-            'No product user for id '.$id
-        );
+      //autorizate token ( in class xsolve_autorization_manager )
+      $autorizationManager = $this->get('x_solve_security.xsolve_autorization_manager');
+      $authenticatedToken = $autorizationManager->getToken($username, $password);
 
-    }
+      if ($authenticatedToken) {
+	 $this->getUser()->assignNewToken();
+	 $this->getDoctrine()->getManager()->flush();
 
 
-    return $this->render('XSolveSecurityBundle:Default:showUser.html.twig', array(
-                    'user' => $user
-                        ));
-    // ... do something, like pass the $product object into a template
+	 return (new JsonResponse())->setData(
+			 ['login' => $username,
+			  'password' => $username,
+		          'token' => $this->getUser()->getToken()->getToken()]);
+      }
+      throw new AccessDeniedException('unable to find token');
+   }
+
 }
-
-
-}
-
-

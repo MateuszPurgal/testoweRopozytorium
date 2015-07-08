@@ -53,4 +53,13 @@
     <route id="page3" path="/page3">
         <default key="_controller">XSolveSecurityBundle:Default:page3</default>
     </route>
+    
+    <route id="page3" path="/page3">
+        <default key="_controller">XSolveSecurityBundle:Default:page3</default>
+    </route>
+        
+    <route id="rest-login" path="/rest-login">
+        <default key="_controller">XSolveSecurityBundle:User:RestLogin</default>
+    </route>
+    
 </routes>
