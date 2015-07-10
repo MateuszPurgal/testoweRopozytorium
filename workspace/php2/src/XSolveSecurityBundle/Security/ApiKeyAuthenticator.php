@@ -12,12 +12,13 @@ use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface {
 
    public function createToken(Request $request, $providerKey) {
-
+     
       $apiKey = $request->query->get('apikey');
 
       if (!$apiKey) {
 	 throw new BadCredentialsException('No API key found');
       }
+
       return new PreAuthenticatedToken(
 	      'anon.', $apiKey, $providerKey
       );
@@ -27,8 +28,7 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface {
 
       if (!$userProvider instanceof XsolveAuthenticationProviderManager) {
 	 throw new \InvalidArgumentException(
-	 sprintf(
-		 'The user provider must be an instance of ApiKeyUserProvider (%s was given).'
+	 sprintf('The user provider must be an instance of ApiKeyUserProvider (%s was given).'
 		 , get_class($userProvider)));
       }
 

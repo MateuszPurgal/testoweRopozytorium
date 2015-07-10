@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\User\UserChecker;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
+
 class AuthorizationManager {
 
    protected $userProvider;
@@ -23,7 +24,7 @@ class AuthorizationManager {
       $this->encoderFactory = $encoderFactory;
    }
 
-
+   
    public function getToken($username, $password) {
      
       
@@ -41,11 +42,14 @@ class AuthorizationManager {
 
       return $authenticatedToken;
    }
-   public function saveToken($authenticatedToken) {
-      if ($authenticatedToken) {
 
-	 return $this->tokenStorage->setToken($authenticatedToken);
+   public function saveToken($authenticatedToken) {
+      if (!$authenticatedToken) {
+
+	 return null;
       }
+
+      return $this->tokenStorage->setToken($authenticatedToken);
    }
 
    protected function getAuthProvider(EncoderFactory $encoderFactory) {

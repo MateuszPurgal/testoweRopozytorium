@@ -28,6 +28,7 @@ class XsolveAuthenticationProviderManager implements UserProviderInterface {
 
       $user = $this->entityManager->getRepository('XSolveSecurityBundle:User')->findOneBy(['username' => $username]);
       if (!$user) {
+
 	 throw new HttpException(401, "Unable to find user");
       }
 
@@ -36,6 +37,7 @@ class XsolveAuthenticationProviderManager implements UserProviderInterface {
    public function refreshUser(UserInterface $user) {
      
       if (!$user instanceof WebserviceUser) {
+
 	 throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
       }
 

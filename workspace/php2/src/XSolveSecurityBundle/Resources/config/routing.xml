@@ -21,6 +21,7 @@
         <default key="_controller">XSolveSecurityBundle:User:ShowUser</default>
     </route>
 
+    <!-- # Wymaga autoryzacji kluczem ( http://127.0.0.1:8000/admin/ShowAllUsers?apikey=9360 ) -->
     <route id="showUsers" path="/admin/ShowAllUsers">
        <default key="_controller">XSolveSecurityBundle:User:ShowAllUsers</default>
     </route>
