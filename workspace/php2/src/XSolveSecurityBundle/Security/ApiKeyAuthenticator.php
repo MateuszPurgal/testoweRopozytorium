@@ -7,7 +7,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+use Symfony\Component\Security\Core\Exception\NotFoundException;
 
 class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface {
 
@@ -16,12 +16,10 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface {
       $apiKey = $request->query->get('apikey');
 
       if (!$apiKey) {
-	 throw new BadCredentialsException('No API key found');
+	 throw new NotFoundException('No API key found');
       }
 
-      return new PreAuthenticatedToken(
-	      'anon.', $apiKey, $providerKey
-      );
+      return new PreAuthenticatedToken('anon.', $apiKey, $providerKey);
    }
 
    public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey) {

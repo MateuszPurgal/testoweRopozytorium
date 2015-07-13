@@ -9,31 +9,33 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class XsolveAuthenticationProviderManager implements UserProviderInterface {
 
    protected $entityManager;
-
    
    public function __construct(\Doctrine\ORM\EntityManager $entityManger) {
       $this->entityManager = $entityManger;
    }
+
    public function getUsernameForApiKey($apiKey) {
 
       $token = $this->entityManager->getRepository('XSolveSecurityBundle:Tokens')->findOneBy(['token' => $apiKey]);
       if (!$token) {
 
-	 throw new HttpException(401, "Unable to find token");
+	 throw new HttpException(404, "Unable to find token");
       }
 
       return $token->getUser()->getUsername();
    }
+
    public function loadUserByUsername($username) {
 
       $user = $this->entityManager->getRepository('XSolveSecurityBundle:User')->findOneBy(['username' => $username]);
       if (!$user) {
 
-	 throw new HttpException(401, "Unable to find user");
+	 throw new HttpException(404, "Unable to find user");
       }
 
       return $user;
    }
+
    public function refreshUser(UserInterface $user) {
      
       if (!$user instanceof WebserviceUser) {
@@ -43,6 +45,7 @@ class XsolveAuthenticationProviderManager implements UserProviderInterface {
 
       return $this->loadUserByUsername($user->getUsername());
    }
+
    public function supportsClass($class) {
 
       return 'Symfony\Component\Security\Core\User\User' === $class;

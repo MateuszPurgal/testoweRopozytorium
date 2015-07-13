@@ -42,8 +42,9 @@ class User implements UserInterface {
     * */
    protected $token;
 
-   public function __construct() {
-
+   public function __construct($username = null, $password = null) {
+      $this->username = $username;
+      $this->password = $password;
    }
 
    /**

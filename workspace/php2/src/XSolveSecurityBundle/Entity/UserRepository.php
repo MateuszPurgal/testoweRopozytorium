@@ -3,6 +3,7 @@
 namespace XSolveSecurityBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * UserRepository
@@ -12,4 +13,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+
+   public function getAllUsersJson() {
+     $users = $this->findAll();
+
+      $tab = []; //tab contain id, usernames and passwords of all user in database
+       foreach ($users as $user) {
+	 $element = ['id' => $user->getId(), 'username' => $user->getUsername()];
+	 $tab[] = $element;
+      }
+      $response = new JsonResponse();
+      $response->setData($tab);
+
+      return $response;
+   }
+
 }
