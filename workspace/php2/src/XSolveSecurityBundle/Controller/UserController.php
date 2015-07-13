@@ -4,9 +4,11 @@ namespace XSolveSecurityBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Exception\NotFoundException;
+
 use Symfony\Component\HttpFoundation\JsonResponse;
 use XSolveSecurityBundle\Entity\User;
+use XSolveSecurityBundle\Security\UserModel;
+use \Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserController extends Controller {
 
@@ -32,11 +34,12 @@ class UserController extends Controller {
 
       $user = $this->getDoctrine()->getRepository('XSolveSecurityBundle:User')->find($id);
       if (!$user) {
-	 throw $this->NotFoundException('No found user');
+	 	 throw new NotFoundHttpException("Unable to find user");
       }
       $jsonResponse = new JsonResponse();
-      $jsonResponse->setData(['login' => $user->getUsername(), 'password' => $user->getPassword()]);
-
+      $userModel = new UserModel($user);
+      $jsonResponse->setData($userModel->getViewData());
+  
       return $jsonResponse;
    }
 
@@ -56,7 +59,8 @@ class UserController extends Controller {
       $em->persist($user);
       $em->flush();
       $jsonResponse = new JsonResponse();
-      $jsonResponse->setData(['login' => $user->getUsername(), 'password' => $user->getPassword(), 'ID' => $user->getID()]);
+      $userModel = new UserModel($user);
+      $jsonResponse->setData($userModel->getViewData());
 
       return $jsonResponse;
    }

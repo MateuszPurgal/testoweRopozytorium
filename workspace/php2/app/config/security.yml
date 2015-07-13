@@ -4,7 +4,7 @@
 security:
      firewalls:
          secured_area:
-             pattern:    ^/
+             pattern:    ^/admin
              anonymous: ~
              stateless: true
              simple_preauth:

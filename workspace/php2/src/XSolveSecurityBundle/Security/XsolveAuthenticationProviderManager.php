@@ -4,7 +4,8 @@ namespace XSolveSecurityBundle\Security;
 
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use \Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use XSolveSecurityBundle\Entity\User;
 
 class XsolveAuthenticationProviderManager implements UserProviderInterface {
 
@@ -19,7 +20,7 @@ class XsolveAuthenticationProviderManager implements UserProviderInterface {
       $token = $this->entityManager->getRepository('XSolveSecurityBundle:Tokens')->findOneBy(['token' => $apiKey]);
       if (!$token) {
 
-	 throw new HttpException(404, "Unable to find token");
+	 throw new NotFoundHttpException("Unable to find token");
       }
 
       return $token->getUser()->getUsername();
@@ -30,7 +31,7 @@ class XsolveAuthenticationProviderManager implements UserProviderInterface {
       $user = $this->entityManager->getRepository('XSolveSecurityBundle:User')->findOneBy(['username' => $username]);
       if (!$user) {
 
-	 throw new HttpException(404, "Unable to find user");
+	 throw new NotFoundHttpException("Unable to find user");
       }
 
       return $user;
@@ -38,7 +39,7 @@ class XsolveAuthenticationProviderManager implements UserProviderInterface {
 
    public function refreshUser(UserInterface $user) {
      
-      if (!$user instanceof WebserviceUser) {
+      if (!$user instanceof User) {
 
 	 throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
       }
