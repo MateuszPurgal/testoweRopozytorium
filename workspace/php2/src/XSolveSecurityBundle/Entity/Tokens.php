@@ -31,7 +31,7 @@ class Tokens {
 
    /**
 
-    * @ORM\OneToOne(targetEntity="User", inversedBy="token")
+    * @ORM\OneToOne(targetEntity="User", inversedBy="token", cascade={"persist", "remove"})
     * @ORM\JoinColumn(name="user_id", referencedColumnName="id" , nullable=false)
     * 
     * */

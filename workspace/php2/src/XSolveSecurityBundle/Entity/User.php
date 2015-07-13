@@ -38,7 +38,7 @@ class User implements UserInterface {
    private $password;
 
    /**
-    * @ORM\OneToOne(targetEntity="Tokens", mappedBy="user" ,cascade={"persist"})
+    * @ORM\OneToOne(targetEntity="Tokens", mappedBy="user" ,cascade={"persist", "remove"} )
     * */
    protected $token;
 
