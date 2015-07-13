@@ -12,7 +12,7 @@ use \Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserController extends Controller {
 
-   public function RestLoginAction(Request $request) {
+   public function restLoginAction(Request $request) {
 
       $username = $request->request->get('login');
       $password = $request->request->get('haslo');
@@ -20,7 +20,7 @@ class UserController extends Controller {
       $authenticatedToken = $autorizationManager->getToken($username, $password);
       if (!$authenticatedToken) {
 
-	 throw new NotFoundException('unable to find token');
+	 throw new NotFoundHttpException('Unable to find token');
       }
       $this->getUser()->assignNewToken();
       $this->getDoctrine()->getManager()->flush();
@@ -30,7 +30,7 @@ class UserController extends Controller {
       return $jsonResponse;
    }
 
-   public function ShowUserAction($id) {
+   public function showUserAction($id) {
 
       $user = $this->getDoctrine()->getRepository('XSolveSecurityBundle:User')->find($id);
       if (!$user) {
@@ -43,7 +43,7 @@ class UserController extends Controller {
       return $jsonResponse;
    }
 
-   public function ShowAllUsersAction() {
+   public function showAllUsersAction() {
 
       $users = $this->getDoctrine()->getRepository('XSolveSecurityBundle:User')->getAllUsersJson();
 

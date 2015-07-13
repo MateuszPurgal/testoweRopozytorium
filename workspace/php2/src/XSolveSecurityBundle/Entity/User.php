@@ -95,17 +95,18 @@ class User implements UserInterface {
     * @return string
     */
    public function getPassword() {
+
       return $this->password;
    }
 
    public function getSalt() {
-      // you *may* need a real salt depending on your encoder
-      // see section on salt below
+
       return null;
    }
 
    public function getRoles() {
       if ($this->username == 'admin') {
+
 	 return array('ROLE_ADMIN');
       }
 
@@ -118,24 +119,14 @@ class User implements UserInterface {
 
    /** @see \Serializable::serialize() */
    public function serialize() {
-      return serialize(array(
-	  $this->id,
-	  $this->username,
-	  $this->password,
-	      // see section on salt below
-	      // $this->salt,
-      ));
+
+      return serialize([$this->id, $this->username, $this->password]);
    }
 
    /** @see \Serializable::unserialize() */
    public function unserialize($serialized) {
-      list (
-	      $this->id,
-	      $this->username,
-	      $this->password,
-	      // see section on salt below
-	      // $this->salt
-	      ) = unserialize($serialized);
+
+      list ($this->id, $this->username, $this->password) = unserialize($serialized);
    }
 
    public function assignNewToken() {

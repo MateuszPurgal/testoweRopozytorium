@@ -12,7 +12,9 @@ class UserModel {
 
    public function getViewData() {
 
-      return ['login' => $this->user->getUsername(), 'password' => $this->user->getPassword(), 'ID' => $this->user->getID()];
+      return ['login' => $this->user->getUsername(),
+	  'password' => $this->user->getPassword(),
+	  'id' => $this->user->getId()];
    }
 
 }

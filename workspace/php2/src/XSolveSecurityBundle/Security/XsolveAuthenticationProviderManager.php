@@ -5,7 +5,6 @@ namespace XSolveSecurityBundle\Security;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use \Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use XSolveSecurityBundle\Entity\User;
 
 class XsolveAuthenticationProviderManager implements UserProviderInterface {
 
@@ -17,7 +16,8 @@ class XsolveAuthenticationProviderManager implements UserProviderInterface {
 
    public function getUsernameForApiKey($apiKey) {
 
-      $token = $this->entityManager->getRepository('XSolveSecurityBundle:Tokens')->findOneBy(['token' => $apiKey]);
+      $token = $this->entityManager->getRepository('XSolveSecurityBundle:Tokens')
+	      ->findOneBy(['token' => $apiKey]);
       if (!$token) {
 
 	 throw new NotFoundHttpException("Unable to find token");
@@ -28,7 +28,8 @@ class XsolveAuthenticationProviderManager implements UserProviderInterface {
 
    public function loadUserByUsername($username) {
 
-      $user = $this->entityManager->getRepository('XSolveSecurityBundle:User')->findOneBy(['username' => $username]);
+      $user = $this->entityManager->getRepository('XSolveSecurityBundle:User')->
+	      findOneBy(['username' => $username]);
       if (!$user) {
 
 	 throw new NotFoundHttpException("Unable to find user");
@@ -36,20 +37,22 @@ class XsolveAuthenticationProviderManager implements UserProviderInterface {
 
       return $user;
    }
-
-   public function refreshUser(UserInterface $user) {
-     
-      if (!$user instanceof User) {
-
-	 throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
+    public function refreshUser(UserInterface $user) {
+      $class = get_class($user);
+      if (!$this->supportsClass($class)) {
+	 throw new UnsupportedUserException(
+	 sprintf(
+		 'Instances of "%s" are not supported.', $class
+	 )
+	 );
       }
 
-      return $this->loadUserByUsername($user->getUsername());
+      return $this->find($user->getId());
    }
 
-   public function supportsClass($class) {
 
-      return 'Symfony\Component\Security\Core\User\User' === $class;
+    public function supportsClass($class) {
+      return $this->getEntityName() === $class || is_subclass_of($class, $this->getEntityName());
    }
 
 }
