@@ -12,8 +12,9 @@ use \Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface {
 
    public function createToken(Request $request, $providerKey) {
-     
-      $apiKey = $request->query->get('apikey');
+
+      $apiKey = $request->cookies->get('X-Token');
+
 
       if (!$apiKey) {
 	 throw new NotFoundHttpException('No API key found');

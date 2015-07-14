@@ -9,7 +9,6 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\User\UserChecker;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
-
 class AuthorizationManager {
 
    protected $userProvider;

@@ -3,8 +3,11 @@
 namespace XSolveSecurityBundle\Entity;
 
 use XSolveSecurityBundle\Entity\Tokens;
+
 use Symfony\Component\Security\Core\User\UserInterface;
+
 use Doctrine\ORM\Mapping as ORM;
+
 
 /**
  * User
@@ -21,28 +24,31 @@ class User implements UserInterface {
     * @ORM\Id
     * @ORM\GeneratedValue(strategy="AUTO")
     */
-   private $id;
+   protected $id;
 
    /**
     * @var string
     *
     * @ORM\Column(name="username", type="string", length=255, unique=true)
     */
-   private $username;
+   protected $username;
 
    /**
     * @var string
     *
     * @ORM\Column(name="password", type="string", length=255)
     */
-   private $password;
+   protected $password;
 
    /**
     * @ORM\OneToOne(targetEntity="Tokens", mappedBy="user" ,cascade={"persist", "remove"} )
     * */
    protected $token;
 
+
+
    public function __construct($username = null, $password = null) {
+
       $this->username = $username;
       $this->password = $password;
    }
@@ -53,6 +59,7 @@ class User implements UserInterface {
     * @return integer
     */
    public function getId() {
+
       return $this->id;
    }
 
@@ -63,6 +70,7 @@ class User implements UserInterface {
     * @return User
     */
    public function setUsername($username) {
+
       $this->username = $username;
 
       return $this;
@@ -74,6 +82,7 @@ class User implements UserInterface {
     * @return string 
     */
    public function getUsername() {
+
       return $this->username;
    }
 
@@ -84,8 +93,8 @@ class User implements UserInterface {
     * @return User
     */
    public function setPassword($password) {
-      $this->password = $password;
 
+      $this->password = $password;
       return $this;
    }
 
@@ -105,6 +114,7 @@ class User implements UserInterface {
    }
 
    public function getRoles() {
+
       if ($this->username == 'admin') {
 
 	 return array('ROLE_ADMIN');
@@ -130,11 +140,11 @@ class User implements UserInterface {
    }
 
    public function assignNewToken() {
+
       $token = $this->getToken();
       if ($token == null) {
 	 $token = new Tokens();
       }
-
       $token->generate();
       $token->setUser($this);
       $this->setToken($token);
@@ -149,6 +159,7 @@ class User implements UserInterface {
     * @return User
     */
    public function setToken(Tokens $token) {
+
       $this->token = $token;
       return $this;
    }
@@ -159,7 +170,10 @@ class User implements UserInterface {
     * @return integer
     */
    public function getToken() {
+
       return $this->token;
    }
+
+
 
 }
