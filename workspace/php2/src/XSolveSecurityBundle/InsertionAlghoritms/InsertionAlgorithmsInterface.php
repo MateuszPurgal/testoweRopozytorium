@@ -2,7 +2,7 @@
 namespace XSolveSecurityBundle\InsertionAlghoritms;
 
 use XSolveSecurityBundle\Entity\Resource;
-use XSolveSecurityBundle\Models\Shelf;
+use XSolveSecurityBundle\Shelf\Shelf;
 
 interface InsertionAlgorithmsInterface {
 

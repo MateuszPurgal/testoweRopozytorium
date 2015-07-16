@@ -1,6 +1,7 @@
 <?php
 
-namespace XSolveSecurityBundle\Models;
+namespace XSolveSecurityBundle\Shelf;
+
 use XSolveSecurityBundle\InsertionAlghoritms\InsertionAlgorithmsInterface;
 use XSolveSecurityBundle\Entity\Resource;
 
@@ -30,7 +31,7 @@ class Shelf {
    }
 
    public function isOccupied($index) {
-      return isset($this->tab[$index]);
+      return !$this->isFree($index);
    }
 
    public function isFree($index) {
@@ -57,6 +58,7 @@ class Shelf {
       if ($this->size === $this->capacity) {
 	 throw new \OutOfRangeException('Out of range shelf');
       }
+
       $this->tab = $this->insertionAlgorithm->tableWitchNewElement($this, $resource);
       $this->size++;
 

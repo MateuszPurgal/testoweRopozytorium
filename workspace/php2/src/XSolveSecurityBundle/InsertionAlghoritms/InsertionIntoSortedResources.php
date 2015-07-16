@@ -4,7 +4,7 @@ namespace XSolveSecurityBundle\InsertionAlghoritms;
 
 use XSolveSecurityBundle\InsertionAlghoritms\InsertionAlgorithmsInterface;
 use XSolveSecurityBundle\Entity\Resource;
-use XSolveSecurityBundle\Models\Shelf;
+use XSolveSecurityBundle\Shelf\Shelf;
 
 class InsertionIntoSortedResources implements InsertionAlgorithmsInterface {
 
