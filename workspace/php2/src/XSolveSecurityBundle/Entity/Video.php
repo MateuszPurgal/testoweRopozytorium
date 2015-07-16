@@ -44,9 +44,8 @@ class Video extends Resource {
      * @param string $videoUrl
      * @return Video
      */
-    public function setVideoUrl($videoUrl)
-    {
-        $this->video_url = $videoUrl;
+    public function setVideoUrl($videoUrl) {
+      $this->video_url = $videoUrl;
 
         return $this;
     }
@@ -56,8 +55,7 @@ class Video extends Resource {
      *
      * @return string 
      */
-    public function getVideoUrl()
-    {
+    public function getVideoUrl(){
         return $this->video_url;
     }
 

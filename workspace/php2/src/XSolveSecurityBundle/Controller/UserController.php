@@ -12,15 +12,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Cookie;
 use XSolveSecurityBundle\Entity\Resource;
 use \XSolveSecurityBundle\Models\ResourceModel;
+use XSolveSecurityBundle\Models\Shelf;
+use XSolveSecurityBundle\Entity\Video;
+use XSolveSecurityBundle\Entity\Image;
 
 class UserController extends Controller {
 
    public function getUsersAction() {
-
       $users = $this->getDoctrine()->getRepository('XSolveSecurityBundle:User')->findAll();
 
-      $tab = []; //tab contain id, usernames and passwords of all user in database
-
+      $tab = []; 
       foreach ($users as $user) {
 	 $usermodel = new UserModel($user);
 	 $element = [$usermodel->getViewData()];
@@ -33,7 +34,6 @@ class UserController extends Controller {
    }
 
    public function getUserAction($id) {
-
       $user = $this->getDoctrine()->getRepository('XSolveSecurityBundle:User')->find($id);
       if (!$user) {
 
@@ -54,6 +54,7 @@ class UserController extends Controller {
       $user = new User($username);
       $passwordChanger->updateUserPassword($user, $password);
       $this->getDoctrine()->getRepository('XSolveSecurityBundle:User')->saveUser($user);
+
       $jsonResponse = new JsonResponse();
       $userModel = new UserModel($user);
       $jsonResponse->setData($userModel->getViewData());
@@ -63,7 +64,6 @@ class UserController extends Controller {
    }
 
    public function deleteUserAction($id) {
-
       $em = $this->getDoctrine()->getEntityManager();
       $user = $em->getRepository('XSolveSecurityBundle:User')->find($id);
       if (!$user) {
@@ -77,7 +77,6 @@ class UserController extends Controller {
    }
 
    public function putUserAction(Request $request, $id) {
-
       $passwordChanger = $this->container->get('x_solve_security.xsolve_password_changer');
       $username = $request->request->get('login');
       $password = $request->request->get('haslo');
@@ -115,7 +114,7 @@ class UserController extends Controller {
       $tokenValue = $userModel->getTokenValue();
       $jsonResponse->setData($tokenValue);
 
-      ///////////////////////TEST/////////////////////////////////////////////////////////
+///////////////////////TEST/////////////////////////////////////////////////////////
       $cookie = new Cookie('X-Token', $this->getUser()->getToken()->getToken());
       $jsonResponse->headers->setCookie($cookie);
 
@@ -128,7 +127,6 @@ class UserController extends Controller {
    }
 
    public function testAction() {
-
       $user = $this->getDoctrine()->getRepository('XSolveSecurityBundle:User')->find(19);
       if (!$user) {
 
@@ -145,7 +143,6 @@ class UserController extends Controller {
    }
 
    public function getResourcesAction() {
-
       $data = $this->getDoctrine()->getRepository('XSolveSecurityBundle:Resource')->findAll();
       $tab = []; //tab contain id, usernames and passwords of all user in database
       foreach ($data as $user) {
@@ -159,7 +156,6 @@ class UserController extends Controller {
    }
 
    public function getVideosAction() {
-
       $query = $this->getDoctrine()->getRepository('XSolveSecurityBundle:Video')->findAll();
       $tab = []; //tab contain id, usernames and passwords of all user in database
       foreach ($query as $video) {
@@ -172,7 +168,6 @@ class UserController extends Controller {
    }
 
    public function getImagesAction() {
-
       $query = $this->getDoctrine()->getRepository('XSolveSecurityBundle:Image')->findAll();
       $tab = []; //tab contain id, usernames and passwords of all user in database
       foreach ($query as $image) {

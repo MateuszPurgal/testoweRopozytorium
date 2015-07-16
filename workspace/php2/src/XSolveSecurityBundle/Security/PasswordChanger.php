@@ -2,14 +2,14 @@
 
 namespace XSolveSecurityBundle\Security;
 
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use XSolveSecurityBundle\Entity\User;
 
 class PasswordChanger {
 
    protected $encoder;
 
-   public function __construct(UserPasswordEncoder $encoder) {
+   public function __construct(UserPasswordEncoderInterface $encoder) {
 
       $this->encoder = $encoder;
    }
@@ -17,6 +17,8 @@ class PasswordChanger {
 
       $newPassword = $this->encoder->encodePassword($user, $password);
       $user->setPassword($newPassword);
+
+      return $newPassword;
    }
 
 }

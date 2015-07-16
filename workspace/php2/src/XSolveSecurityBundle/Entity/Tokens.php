@@ -59,7 +59,6 @@ class Tokens {
 	 $this->token = $token;
       }
 
-
       return $this;
    }
 
@@ -80,6 +79,7 @@ class Tokens {
     */
    public function setUser(User $user) {
       $this->user = $user;
+
       return $this;
    }
 
@@ -94,6 +94,7 @@ class Tokens {
 
    public function generate() {
       $this->token = (string) rand(1000, 9999);
+
       return $this;
    }
 

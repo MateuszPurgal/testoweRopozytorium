@@ -48,7 +48,6 @@ class User implements UserInterface {
 
 
    public function __construct($username = null, $password = null) {
-
       $this->username = $username;
       $this->password = $password;
    }
@@ -59,7 +58,6 @@ class User implements UserInterface {
     * @return integer
     */
    public function getId() {
-
       return $this->id;
    }
 
@@ -70,7 +68,6 @@ class User implements UserInterface {
     * @return User
     */
    public function setUsername($username) {
-
       $this->username = $username;
 
       return $this;
@@ -82,7 +79,6 @@ class User implements UserInterface {
     * @return string 
     */
    public function getUsername() {
-
       return $this->username;
    }
 
@@ -93,8 +89,8 @@ class User implements UserInterface {
     * @return User
     */
    public function setPassword($password) {
-
       $this->password = $password;
+
       return $this;
    }
 
@@ -104,19 +100,15 @@ class User implements UserInterface {
     * @return string
     */
    public function getPassword() {
-
       return $this->password;
    }
 
    public function getSalt() {
-
       return null;
    }
 
    public function getRoles() {
-
       if ($this->username == 'admin') {
-
 	 return array('ROLE_ADMIN');
       }
 
@@ -129,18 +121,15 @@ class User implements UserInterface {
 
    /** @see \Serializable::serialize() */
    public function serialize() {
-
       return serialize([$this->id, $this->username, $this->password]);
    }
 
    /** @see \Serializable::unserialize() */
    public function unserialize($serialized) {
-
       list ($this->id, $this->username, $this->password) = unserialize($serialized);
    }
 
    public function assignNewToken() {
-
       $token = $this->getToken();
       if ($token == null) {
 	 $token = new Tokens();
@@ -159,8 +148,8 @@ class User implements UserInterface {
     * @return User
     */
    public function setToken(Tokens $token) {
-
       $this->token = $token;
+
       return $this;
    }
 
@@ -170,7 +159,6 @@ class User implements UserInterface {
     * @return integer
     */
    public function getToken() {
-
       return $this->token;
    }
 

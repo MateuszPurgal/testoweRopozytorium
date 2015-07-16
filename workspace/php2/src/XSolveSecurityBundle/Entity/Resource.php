@@ -28,6 +28,12 @@ class Resource
     protected $id;
 
    /**
+    *
+    * @ORM\Column(name="name", type="text")
+    */
+   protected $name;
+
+   /**
     * @ORM\ManyToOne(targetEntity="User")
     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
     * */
@@ -38,19 +44,27 @@ class Resource
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId(){
         return $this->id;
     }
 
-    /**
+    public function getName() {
+      return $this->name;
+   }
+
+   public function setName($name) {
+      $this->name = $name;
+
+      return $this;
+   }
+
+   /**
      * Set user
      *
      * @param \XSolveSecurityBundle\Entity\User $user
      * @return Resource
      */
-    public function setUser(\XSolveSecurityBundle\Entity\User $user = null)
-    {
+    public function setUser(\XSolveSecurityBundle\Entity\User $user = null){
         $this->user = $user;
 
         return $this;
@@ -61,8 +75,7 @@ class Resource
      *
      * @return \XSolveSecurityBundle\Entity\User 
      */
-    public function getUser()
-    {
+    public function getUser(){
         return $this->user;
     }
 

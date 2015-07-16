@@ -15,11 +15,9 @@ class XsolveAuthenticationProviderManager implements UserProviderInterface {
    }
 
    public function getUsernameForApiKey($apiKey) {
-
       $token = $this->entityManager->getRepository('XSolveSecurityBundle:Tokens')
 	      ->findOneBy(['token' => $apiKey]);
       if (!$token) {
-
 	 throw new NotFoundHttpException("Unable to find token");
       }
 
@@ -27,11 +25,9 @@ class XsolveAuthenticationProviderManager implements UserProviderInterface {
    }
 
    public function loadUserByUsername($username) {
-
       $user = $this->entityManager->getRepository('XSolveSecurityBundle:User')->
 	      findOneBy(['username' => $username]);
       if (!$user) {
-
 	 throw new NotFoundHttpException("Unable to find user");
       }
 

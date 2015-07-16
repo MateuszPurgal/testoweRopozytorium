@@ -12,12 +12,10 @@ class ResourceModel {
    protected $resource;
 
    public function __construct(Resource $resource) {
-
       $this->resource = $resource;
    }
 
    public function getViewData() {
-
       $tab = ['id' => $this->resource->getId(),
 	  'user_id' => $this->resource->getUser()->getId()];
       if (get_class($this->resource) == 'XSolveSecurityBundle\Entity\Video') {
