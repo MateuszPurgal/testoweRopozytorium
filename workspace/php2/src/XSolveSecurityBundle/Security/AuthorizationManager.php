@@ -9,7 +9,6 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\User\UserChecker;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
-
 class AuthorizationManager {
 
    protected $userProvider;
@@ -26,12 +25,9 @@ class AuthorizationManager {
 
    
    public function getToken($username, $password) {
-     
-      
       $provider = $this->getAuthProvider($this->encoderFactory);
       $unauthenticatedToken = new UsernamePasswordToken($username, $password, $this->providerKey);
       $authenticationManager = new AuthenticationProviderManager([$provider]);
-
       try {
 	 $authenticatedToken = $authenticationManager->authenticate($unauthenticatedToken);
       } catch (AuthenticationException $failed) {

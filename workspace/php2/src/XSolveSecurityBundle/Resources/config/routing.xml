@@ -5,29 +5,47 @@
         xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
 
-    <route id="x_solve_index" path="/">
-        <default key="_controller">XSolveSecurityBundle:Default:index</default>
-    </route>
-    
-    <route id="adminUsers" path="/admin/users">
-        <default key="_controller">XSolveSecurityBundle:Default:adminUsers</default>
-    </route>
-    
-    <route id="register" path="/register">
-       <default key="_controller">XSolveSecurityBundle:User:register</default>
-    </route>
-    
-    <route id="showUser" path="/showUser/{id}">
-        <default key="_controller">XSolveSecurityBundle:User:ShowUser</default>
-    </route>
+   <route id="getUsers" path="/user" methods="GET">
+      <default key="_controller">XSolveSecurityBundle:User:getUsers</default>
+   </route>
 
-    <!-- # Wymaga autoryzacji kluczem ( http://127.0.0.1:8000/admin/ShowAllUsers?apikey=9360 ) -->
-    <route id="showUsers" path="/admin/ShowAllUsers">
-       <default key="_controller">XSolveSecurityBundle:User:ShowAllUsers</default>
-    </route>
+   <route id="postUser" path="/user" methods="POST">
+      <default key="_controller">XSolveSecurityBundle:User:postUser</default>
+   </route>
 
-    <route id="rest-login" path="/rest-login">
-        <default key="_controller">XSolveSecurityBundle:User:RestLogin</default>
-    </route>
+   <route id="getUser" path="/user/{id}" methods="GET">
+      <default key="_controller">XSolveSecurityBundle:User:getUser</default>
+   </route>
+
+   <route id="putUser" path="/user/{id}" methods="POST">
+      <default key="_controller">XSolveSecurityBundle:User:putUser</default>
+   </route>
+
+   <route id="deleteUser" path="/user/{id}" methods="DELETE">
+      <default key="_controller">XSolveSecurityBundle:User:deleteUser</default>
+   </route>
+
+   <route id="rest-login" path="/rest-login">
+      <default key="_controller">XSolveSecurityBundle:User:restLogin</default>
+   </route>
+
+
+   <route id="getResources" path="/resource" methods="GET">
+      <default key="_controller">XSolveSecurityBundle:User:getResources</default>
+   </route>
+
+   <route id="getVideos" path="/video" methods="GET">
+      <default key="_controller">XSolveSecurityBundle:User:getVideos</default>
+   </route>
+
+   <route id="getImages" path="/image" methods="GET">
+      <default key="_controller">XSolveSecurityBundle:User:getImages</default>
+   </route>
+
+
+
+   <route id="test" path="/test">
+      <default key="_controller">XSolveSecurityBundle:User:test</default>
+   </route>
     
 </routes>

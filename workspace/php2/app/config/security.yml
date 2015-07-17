@@ -4,7 +4,7 @@
 security:
      firewalls:
          secured_area:
-             pattern:    ^/
+             pattern:    ^/user
              anonymous: ~
              stateless: true
              simple_preauth:
@@ -25,7 +25,7 @@ security:
             id: x_solve_security.xsolve_user_prvoider
        
      encoders:
-         XSolveSecurityBundle\Entity\User: plaintext
-         Symfony\Component\Security\Core\User\User: plaintext
+         XSolveSecurityBundle\Entity\User: bcrypt
+
 
 

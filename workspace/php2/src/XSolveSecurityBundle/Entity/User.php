@@ -3,8 +3,11 @@
 namespace XSolveSecurityBundle\Entity;
 
 use XSolveSecurityBundle\Entity\Tokens;
+
 use Symfony\Component\Security\Core\User\UserInterface;
+
 use Doctrine\ORM\Mapping as ORM;
+
 
 /**
  * User
@@ -21,29 +24,32 @@ class User implements UserInterface {
     * @ORM\Id
     * @ORM\GeneratedValue(strategy="AUTO")
     */
-   private $id;
+   protected $id;
 
    /**
     * @var string
     *
     * @ORM\Column(name="username", type="string", length=255, unique=true)
     */
-   private $username;
+   protected $username;
 
    /**
     * @var string
     *
     * @ORM\Column(name="password", type="string", length=255)
     */
-   private $password;
+   protected $password;
 
    /**
-    * @ORM\OneToOne(targetEntity="Tokens", mappedBy="user" ,cascade={"persist"})
+    * @ORM\OneToOne(targetEntity="Tokens", mappedBy="user" ,cascade={"persist", "remove"} )
     * */
    protected $token;
 
-   public function __construct() {
 
+
+   public function __construct($username = null, $password = null) {
+      $this->username = $username;
+      $this->password = $password;
    }
 
    /**
@@ -98,8 +104,6 @@ class User implements UserInterface {
    }
 
    public function getSalt() {
-      // you *may* need a real salt depending on your encoder
-      // see section on salt below
       return null;
    }
 
@@ -117,24 +121,12 @@ class User implements UserInterface {
 
    /** @see \Serializable::serialize() */
    public function serialize() {
-      return serialize(array(
-	  $this->id,
-	  $this->username,
-	  $this->password,
-	      // see section on salt below
-	      // $this->salt,
-      ));
+      return serialize([$this->id, $this->username, $this->password]);
    }
 
    /** @see \Serializable::unserialize() */
    public function unserialize($serialized) {
-      list (
-	      $this->id,
-	      $this->username,
-	      $this->password,
-	      // see section on salt below
-	      // $this->salt
-	      ) = unserialize($serialized);
+      list ($this->id, $this->username, $this->password) = unserialize($serialized);
    }
 
    public function assignNewToken() {
@@ -142,7 +134,6 @@ class User implements UserInterface {
       if ($token == null) {
 	 $token = new Tokens();
       }
-
       $token->generate();
       $token->setUser($this);
       $this->setToken($token);
@@ -158,6 +149,7 @@ class User implements UserInterface {
     */
    public function setToken(Tokens $token) {
       $this->token = $token;
+
       return $this;
    }
 
@@ -169,5 +161,7 @@ class User implements UserInterface {
    public function getToken() {
       return $this->token;
    }
+
+
 
 }
